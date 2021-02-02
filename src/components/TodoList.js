@@ -14,13 +14,14 @@ export default function TodoList(props) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     })
       .then((r) => r.json())
       .then((resp) => {
         console.log("Got data from POST backend", resp);
 
         items.push(resp);
+        // setItems(items);
+        // console.log(items);
         setItems([...items]);
         setNewItem("");
       });
@@ -29,11 +30,10 @@ export default function TodoList(props) {
     setNewItem(evt.target.value);
   };
 
-  const deleteHandler = (itemIdx) => {
+  const deleteHandler1 = (itemIdx) => {
     const idToDelete = items[itemIdx]._id;
     fetch(`http://localhost:9999/todo/${idToDelete}`, {
       method: "DELETE",
-      credentials: "include",
     }).then((r) => {
       console.log("Got successfully DELETE");
       items.splice(itemIdx, 1);
@@ -49,7 +49,6 @@ export default function TodoList(props) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     })
       .then((r) => r.json())
       .then((resp) => {
@@ -65,7 +64,9 @@ export default function TodoList(props) {
       .then((arr) => {
         const sortedArr = arr.sort((a, b) => {
           const aDateNumeric = new Date(a.creationTime).valueOf();
+          console.log(aDateNumeric);
           const bDateNumeric = new Date(b.creationTime).valueOf();
+          console.log(aDateNumeric);
           return aDateNumeric - bDateNumeric;
         }); // sorts in ascending order of id - timestamp
         // const taskArr = sortedArr.map((item) => item.task); // gets the task for each item to create a strig array
@@ -96,7 +97,7 @@ export default function TodoList(props) {
           key={item._id}
           idx={idx}
           editHandler={editHandler}
-          deleteHandler={deleteHandler}
+          deleteHandler={deleteHandler1}
         />
       ))}
     </div>
