@@ -69,7 +69,7 @@ export default function TodoList(props) {
           console.log(aDateNumeric);
           return aDateNumeric - bDateNumeric;
         }); // sorts in ascending order of id - timestamp
-        // const taskArr = sortedArr.map((item) => item.task); // gets the task for each item to create a strig array
+
         setItems(sortedArr); // sets the array of { id, task }
       });
   }, []);
